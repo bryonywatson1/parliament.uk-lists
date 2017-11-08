@@ -7,12 +7,7 @@ module Parliaments
     }.freeze
 
     def index
-      @parliament, @houses = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House')
-      )
-
+      @parliament, @houses = FilterHelper.multi_filter(@request, 'ParliamentPeriod', 'House')
       @parliament = @parliament.first
       @houses     = @houses.sort_by(:name)
     end

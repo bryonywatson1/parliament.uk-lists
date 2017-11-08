@@ -12,39 +12,21 @@ module Parties
     }.freeze
 
     def index
-      @party, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @party, @people, @letters = FilterHelper.filter_letters(@request, 'Party', 'Person')
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
     end
 
     def current
-      @party, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @party, @people, @letters = FilterHelper.filter_letters(@request, 'Party', 'Person')
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
     end
 
     def letters
-      @party, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @party, @people, @letters = FilterHelper.filter_letters(@request, 'Party', 'Person')
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -52,13 +34,7 @@ module Parties
     end
 
     def current_letters
-      @party, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @party, @people, @letters = FilterHelper.filter_letters(@request, 'Party', 'Person')
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -66,12 +42,7 @@ module Parties
     end
 
     def a_to_z
-      @party, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-        ::Grom::Node::BLANK
-      )
-
+      @party, @letters = FilterHelper.filter_letters(@request, 'Party')
       @party = @party.first
       @party_id = params[:party_id]
       @letters = @letters.map(&:value)
@@ -79,12 +50,7 @@ module Parties
     end
 
     def a_to_z_current
-      @party, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-        ::Grom::Node::BLANK
-      )
-
+      @party, @letters = FilterHelper.filter_letters(@request, 'Party')
       @party = @party.first
       @party_id = params[:party_id]
       @letters = @letters.map(&:value)

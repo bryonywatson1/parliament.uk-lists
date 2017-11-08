@@ -7,12 +7,7 @@ module People
     }.freeze
 
     def index
-      @person, @contact_points = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ContactPoint')
-      )
-
+      @person, @contact_points = FilterHelper.multi_filter(@request, 'Person', 'ContactPoint')
       @person = @person.first
     end
   end

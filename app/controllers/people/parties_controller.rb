@@ -8,23 +8,13 @@ module People
     }.freeze
 
     def index
-      @person, @party_memberships = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('PartyMembership')
-      )
-
+      @person, @party_memberships = FilterHelper.multi_filter(@request, 'Person', 'PartyMembership')
       @person = @person.first
       @party_memberships = @party_memberships.reverse_sort_by(:start_date)
     end
 
     def current
-      @person, @party = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party')
-      )
-
+      @person, @party = FilterHelper.multi_filter(@request, 'Person', 'Party')
       @person = @person.first
       @party = @party.first
     end

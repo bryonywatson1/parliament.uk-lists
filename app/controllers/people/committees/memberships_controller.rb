@@ -9,26 +9,14 @@ module People
       }.freeze
 
       def index
-        @person, @committee_memberships, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-          @request,
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('FormalBodyMembership'),
-          ::Grom::Node::BLANK
-        )
-
+        @person, @committee_memberships, @letters = FilterHelper.filter_letters(@request, 'Person', 'FormalBodyMembership')
         @person                = @person.first
         @committee_memberships = @committee_memberships.reverse_sort_by(:start_date)
         @letters               = @letters.map(&:value)
       end
 
       def current
-        @person, @committee_memberships, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-           @request,
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('FormalBodyMembership'),
-          ::Grom::Node::BLANK
-        )
-
+        @person, @committee_memberships, @letters = FilterHelper.filter_letters(@request, 'Person', 'FormalBodyMembership')
         @person                = @person.first
         @committee_memberships = @committee_memberships.reverse_sort_by(:start_date)
         @letters               = @letters.map(&:value)

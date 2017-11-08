@@ -9,26 +9,14 @@ module Parliaments
     }.freeze
 
     def index
-      @parliament, @constituencies, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ConstituencyGroup'),
-        ::Grom::Node::BLANK
-      )
-
+      @parliament, @constituencies, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'ConstituencyGroup')
       @parliament     = @parliament.first
       @constituencies = @constituencies.sort_by(:name)
       @letters        = @letters.map(&:value)
     end
 
     def a_to_z
-      @parliament, @constituencies, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ConstituencyGroup'),
-        ::Grom::Node::BLANK
-      )
-
+      @parliament, @constituencies, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'ConstituencyGroup')
       @parliament     = @parliament.first
       @constituencies = @constituencies.sort_by(:name)
       @letters        = @letters.map(&:value)
@@ -36,13 +24,7 @@ module Parliaments
     end
 
     def letters
-      @parliament, @constituencies, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ConstituencyGroup'),
-        ::Grom::Node::BLANK
-      )
-
+      @parliament, @constituencies, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'ConstituencyGroup')
       @parliament     = @parliament.first
       @constituencies = @constituencies.sort_by(:name)
       @letters        = @letters.map(&:value)

@@ -12,48 +12,20 @@ module People
     }.freeze
 
     def index
-      @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
-      @people = @people.sort_by(:sort_name)
-      @letters = @letters.map(&:value)
+      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
     end
 
     def current
-      @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
-      @people = @people.sort_by(:sort_name)
-      @letters = @letters.map(&:value)
+      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
     end
 
     def letters
-      @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
-      @people = @people.sort_by(:sort_name)
-      @letters = @letters.map(&:value)
+      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
       @all_path = :people_members_path
     end
 
     def current_letters
-      @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
-      @people = @people.sort_by(:sort_name)
-      @letters = @letters.map(&:value)
+      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
       @all_path = :people_members_current_path
     end
 

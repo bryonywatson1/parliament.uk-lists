@@ -7,12 +7,7 @@ module People
     }.freeze
 
     def index
-      @person, @committee_memberships = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('FormalBodyMembership')
-      )
-
+      @person, @committee_memberships = FilterHelper.multi_filter(@request, 'Person', 'FormalBodyMembership')
       @person = @person.first
       @committee_memberships = @committee_memberships.reverse_sort_by(:start_date)
     end

@@ -9,14 +9,7 @@ class PeopleController < ApplicationController
   }.freeze
 
   def index
-    @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-      @request,
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-      ::Grom::Node::BLANK
-    )
-
-    @people = @people.sort_by(:sort_name)
-    @letters = @letters.map(&:value)
+    @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
   end
 
   def postcode_lookup
@@ -26,14 +19,7 @@ class PeopleController < ApplicationController
   end
 
   def letters
-    @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-      @request,
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-      ::Grom::Node::BLANK
-    )
-
-    @people = @people.sort_by(:sort_name)
-    @letters = @letters.map(&:value)
+    @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
     @all_path = :people_path
   end
 
@@ -43,11 +29,7 @@ class PeopleController < ApplicationController
   end
 
   def lookup_by_letters
-    @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-      @request,
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-      ::Grom::Node::BLANK
-    )
+    @people, @letters = FilterHelper.filter_letters(@request, 'Person')
 
     return redirect_to person_path(@people.first.graph_id) if @people.size == 1
 

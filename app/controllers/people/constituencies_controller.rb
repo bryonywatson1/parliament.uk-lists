@@ -8,23 +8,13 @@ module People
     }.freeze
 
     def index
-      @person, @seat_incumbencies = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('SeatIncumbency')
-      )
-
+      @person, @seat_incumbencies = FilterHelper.multi_filter(@request, 'Person', 'SeatIncumbency')
       @person = @person.first
       @seat_incumbencies = @seat_incumbencies.reverse_sort_by(:start_date)
     end
 
     def current
-      @person, @constituency = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ConstituencyGroup')
-      )
-
+      @person, @constituency = FilterHelper.multi_filter(@request, 'Person', 'ConstituencyGroup')
       @person = @person.first
       @constituency = @constituency.first
     end
