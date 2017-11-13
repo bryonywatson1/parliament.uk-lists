@@ -7,7 +7,7 @@ module Parliaments
     }.freeze
 
     def index
-      @parliament, @houses = FilterHelper.filter(@request, 'ParliamentPeriod', 'House')
+      @parliament, @houses = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ParliamentPeriod', 'House')
       @parliament = @parliament.first
       @houses     = @houses.sort_by(:name)
     end

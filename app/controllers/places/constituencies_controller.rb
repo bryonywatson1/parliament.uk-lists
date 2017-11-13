@@ -15,7 +15,7 @@ module Places
     # @return [Array] Array of Grom::Nodes of type 'ConstituencyGroup'
     # @return [Array] Array of blank Grom::Nodes, from which to find letters
     def index
-      @place, @constituencies, @letters = FilterHelper.filter_letters(@request, 'ordnance', 'ConstituencyGroup')
+      @place, @constituencies, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ordnance', 'ConstituencyGroup')
       @place = @place.first
       @constituencies = @constituencies.sort_by(:name)
       @letters = @letters.map(&:value)
@@ -25,7 +25,7 @@ module Places
     # Renders a list of letters taken from first letter of all constituencies within a given place.
     # Shown with an a - z partial view.
     def a_to_z
-      @place, @letters = FilterHelper.filter_letters(@request, 'ordnance')
+      @place, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ordnance')
       @place = @place.first
       @letters = @letters.map(&:value)
     end
@@ -33,7 +33,7 @@ module Places
     # Renders a list of constituencies in a given place that begin with a particular letter given the letter. Shown with an a - z partial view.
     # @controller_action_param :letter [String] single letter that is case insensitive.
     def letters
-      @place, @constituencies, @letters = FilterHelper.filter_letters(@request, 'ordnance', 'ConstituencyGroup')
+      @place, @constituencies, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ordnance', 'ConstituencyGroup')
       @place = @place.first
       @constituencies = @constituencies.sort_by(:name)
       @letters = @letters.map(&:value)

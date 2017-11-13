@@ -8,7 +8,7 @@ module Parliaments
       }.freeze
 
       def index
-        @parliament, @house, @parties, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party')
+        @parliament, @house, @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party')
         @parliament = @parliament.first
         @house      = @house.first
         @parties    = @parties = @parties.multi_direction_sort({ member_count: :desc, name: :asc })

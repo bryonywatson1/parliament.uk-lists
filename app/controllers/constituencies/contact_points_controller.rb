@@ -10,7 +10,7 @@ module Constituencies
     # @controller_action_param :constituency_id [String] 8 character identifier that identifies constituency in graph database.
     # @return [Grom::Node] object with type 'https://id.parliament.uk/schema/ConstituencyGroup' which has a contact point.
     def index
-      @constituency = FilterHelper.filter(@request, 'ConstituencyGroup').first
+      @constituency = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ConstituencyGroup').first
     end
   end
 end

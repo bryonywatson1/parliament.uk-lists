@@ -12,7 +12,7 @@ module Houses
     }.freeze
 
     def index
-      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
+      @house, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -22,7 +22,7 @@ module Houses
     end
 
     def current
-      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
+      @house, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -32,7 +32,7 @@ module Houses
     end
 
     def letters
-      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
+      @house, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -42,7 +42,7 @@ module Houses
     end
 
     def current_letters
-      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
+      @house, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -52,7 +52,7 @@ module Houses
     end
 
     def a_to_z
-      @house, @letters = FilterHelper.filter_letters(@request, 'House')
+      @house, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House')
       @house = @house.first
       @house_id = params[:house_id]
       @letters = @letters.map(&:value)
@@ -61,7 +61,7 @@ module Houses
     end
 
     def a_to_z_current
-      @house, @letters = FilterHelper.filter_letters(@request, 'House')
+      @house, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House')
       @house = @house.first
       @house_id = params[:house_id]
       @letters = @letters.map(&:value)

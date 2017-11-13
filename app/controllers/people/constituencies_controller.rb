@@ -8,13 +8,13 @@ module People
     }.freeze
 
     def index
-      @person, @seat_incumbencies = FilterHelper.filter(@request, 'Person', 'SeatIncumbency')
+      @person, @seat_incumbencies = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Person', 'SeatIncumbency')
       @person = @person.first
       @seat_incumbencies = @seat_incumbencies.reverse_sort_by(:start_date)
     end
 
     def current
-      @person, @constituency = FilterHelper.filter(@request, 'Person', 'ConstituencyGroup')
+      @person, @constituency = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Person', 'ConstituencyGroup')
       @person = @person.first
       @constituency = @constituency.first
     end

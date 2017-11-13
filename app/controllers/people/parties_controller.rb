@@ -8,13 +8,13 @@ module People
     }.freeze
 
     def index
-      @person, @party_memberships = FilterHelper.filter(@request, 'Person', 'PartyMembership')
+      @person, @party_memberships = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Person', 'PartyMembership')
       @person = @person.first
       @party_memberships = @party_memberships.reverse_sort_by(:start_date)
     end
 
     def current
-      @person, @party = FilterHelper.filter(@request, 'Person', 'Party')
+      @person, @party = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Person', 'Party')
       @person = @person.first
       @party = @party.first
     end

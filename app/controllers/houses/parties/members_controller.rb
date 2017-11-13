@@ -13,7 +13,7 @@ module Houses
       }.freeze
 
       def index
-        @house, @party, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
+        @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
         @house = @house.first
         @party = @party.first
         @people = @people.sort_by(:sort_name)
@@ -22,7 +22,7 @@ module Houses
       end
 
       def letters
-        @house, @party, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
+        @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
         @house = @house.first
         @party = @party.first
         @people = @people.sort_by(:sort_name)
@@ -34,7 +34,7 @@ module Houses
       end
 
       def current
-        @house, @party, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
+        @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
         @house = @house.first
         @party = @party.first
         @people = @people.sort_by(:sort_name)
@@ -43,7 +43,7 @@ module Houses
       end
 
       def current_letters
-        @house, @party, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
+        @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Party', 'Person')
         @house = @house.first
         @party = @party.first
         @people = @people.sort_by(:sort_name)
@@ -53,7 +53,7 @@ module Houses
       end
 
       def a_to_z
-        @house, @party, @letters = FilterHelper.filter_letters(@request, 'House', 'Party')
+        @house, @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Party')
         @house = @house.first
         @house_id = params[:house_id]
         @party = @party.first
@@ -64,7 +64,7 @@ module Houses
       end
 
       def a_to_z_current
-        @house, @party, @letters = FilterHelper.filter_letters(@request, 'House', 'Party')
+        @house, @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'Party')
         @house = @house.first
         @house_id = params[:house_id]
         @party = @party.first

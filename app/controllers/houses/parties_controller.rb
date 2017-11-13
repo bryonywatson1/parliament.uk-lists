@@ -9,13 +9,13 @@ module Houses
     }.freeze
 
     def index
-      @house, @parties = FilterHelper.filter(@request, 'House', 'Party')
+      @house, @parties = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'House', 'Party')
       @house = @house.first
       @parties = @parties.sort_by(:name)
     end
 
     def current
-      @house, @parties = FilterHelper.filter(@request, 'House', 'Party')
+      @house, @parties = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'House', 'Party')
       @house = @house.first
       @parties = @parties.multi_direction_sort({ member_count: :desc, name: :asc })
     end

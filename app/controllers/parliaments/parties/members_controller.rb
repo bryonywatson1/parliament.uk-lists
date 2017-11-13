@@ -14,7 +14,7 @@ module Parliaments
       }.freeze
 
       def index
-        @parliament, @party, @people, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'Party', 'Person')
+        @parliament, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'Party', 'Person')
         @parliament = @parliament.first
         @party      = @party.first
         @people     = @people.sort_by(:sort_name)
@@ -22,7 +22,7 @@ module Parliaments
       end
 
       def a_to_z
-        @parliament, @party, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'Party')
+        @parliament, @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'Party')
         @parliament = @parliament.first
         @party      = @party.first
         @letters    = @letters.map(&:value)
@@ -30,7 +30,7 @@ module Parliaments
       end
 
       def letters
-        @parliament, @party, @people, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'Party', 'Person')
+        @parliament, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'Party', 'Person')
         @parliament = @parliament.first
         @party      = @party.first
         @people     = @people.sort_by(:sort_name)

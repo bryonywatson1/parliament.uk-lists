@@ -12,21 +12,21 @@ module Houses
     }.freeze
 
     def index
-      @house, @committees, @letters = FilterHelper.filter_letters(@request, 'House', 'FormalBody')
+      @house, @committees, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'FormalBody')
       @house      = @house.first
       @committees = @committees.sort_by(:name)
       @letters    = @letters.map(&:value)
     end
 
     def a_to_z
-      @house, @letters = FilterHelper.filter_letters(@request, 'House')
+      @house, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House')
       @house = @house.first
       @letters = @letters.map(&:value)
       @all_path = :house_committees_path
     end
 
     def letters
-      @house, @committees, @letters = FilterHelper.filter_letters(@request, 'House', 'FormalBody')
+      @house, @committees, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'FormalBody')
       @house      = @house.first
       @committees = @committees.sort_by(:name)
       @letters    = @letters.map(&:value)
@@ -34,21 +34,21 @@ module Houses
     end
 
     def current
-      @house, @committees, @letters = FilterHelper.filter_letters(@request, 'House', 'FormalBody')
+      @house, @committees, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'FormalBody')
       @house      = @house.first
       @committees = @committees.sort_by(:name)
       @letters    = @letters.map(&:value)
     end
 
     def a_to_z_current
-      @house, @letters = FilterHelper.filter_letters(@request, 'House')
+      @house, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House')
       @house = @house.first
       @letters = @letters.map(&:value)
       @all_path = :house_committees_current_path
     end
 
     def current_letters
-      @house, @committees, @letters = FilterHelper.filter_letters(@request, 'House', 'FormalBody')
+      @house, @committees, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'House', 'FormalBody')
       @house      = @house.first
       @committees = @committees.sort_by(:name)
       @letters    = @letters.map(&:value)
