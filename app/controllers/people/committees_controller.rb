@@ -7,7 +7,7 @@ module People
     }.freeze
 
     def index
-      @person, @committee_memberships = FilterHelper.multi_filter(@request, 'Person', 'FormalBodyMembership')
+      @person, @committee_memberships = FilterHelper.filter(@request, 'Person', 'FormalBodyMembership')
       @person = @person.first
       @committee_memberships = @committee_memberships.reverse_sort_by(:start_date)
     end

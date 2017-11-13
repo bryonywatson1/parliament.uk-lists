@@ -9,23 +9,13 @@ module Houses
     }.freeze
 
     def index
-      @house, @parties = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party')
-      )
-
+      @house, @parties = FilterHelper.filter(@request, 'House', 'Party')
       @house = @house.first
       @parties = @parties.sort_by(:name)
     end
 
     def current
-      @house, @parties = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party')
-      )
-
+      @house, @parties = FilterHelper.filter(@request, 'House', 'Party')
       @house = @house.first
       @parties = @parties.multi_direction_sort({ member_count: :desc, name: :asc })
     end

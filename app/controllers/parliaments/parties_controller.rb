@@ -7,7 +7,7 @@ module Parliaments
     }.freeze
 
     def index
-      @parliament, @parties = FilterHelper.multi_filter(@request, 'ParliamentPeriod', 'Party')
+      @parliament, @parties = FilterHelper.filter(@request, 'ParliamentPeriod', 'Party')
       @parliament = @parliament.first
       @parties = @parties.multi_direction_sort({ member_count: :desc, name: :asc })
     end

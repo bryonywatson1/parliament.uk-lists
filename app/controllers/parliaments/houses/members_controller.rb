@@ -14,14 +14,7 @@ module Parliaments
       }.freeze
 
       def index
-        @parliament, @house, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-          @request,
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-          ::Grom::Node::BLANK
-        )
-
+        @parliament, @house, @people, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Person')
         @parliament = @parliament.first
         @house      = @house.first
         @people     = @people.sort_by(:sort_name)
@@ -29,13 +22,7 @@ module Parliaments
       end
 
       def a_to_z
-        @parliament, @house, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-          @request,
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-          ::Grom::Node::BLANK
-        )
-
+        @parliament, @house, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House')
         @parliament = @parliament.first
         @house      = @house.first
         @letters    = @letters.map(&:value)
@@ -43,14 +30,7 @@ module Parliaments
       end
 
       def letters
-        @parliament, @house, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-          @request,
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-          Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-          ::Grom::Node::BLANK
-        )
-
+        @parliament, @house, @people, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Person')
         @parliament = @parliament.first
         @house      = @house.first
         @people     = @people.sort_by(:sort_name)

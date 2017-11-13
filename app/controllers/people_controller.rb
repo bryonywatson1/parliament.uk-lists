@@ -9,7 +9,7 @@ class PeopleController < ApplicationController
   }.freeze
 
   def index
-    @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
+    @people, @letters = FilterHelper.filter_sort(@request, 'Person', :sort_name)
   end
 
   def postcode_lookup
@@ -19,7 +19,7 @@ class PeopleController < ApplicationController
   end
 
   def letters
-    @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
+    @people, @letters = FilterHelper.filter_sort(@request, 'Person', :sort_name)
     @all_path = :people_path
   end
 

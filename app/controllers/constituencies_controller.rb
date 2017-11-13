@@ -22,7 +22,7 @@ class ConstituenciesController < ApplicationController
   # Renders a list of all constituencies with current incumbents and sorted in ascending order by name from a GET request. Shown with an a - z partial view.
   # @return [Array] Grom::Nodes of type 'https://id.parliament.uk/schema/ConstituencyGroup'.
   def current
-    @constituencies, @letters = FilterHelper.letters(@request, 'ConstituencyGroup', :name)
+    @constituencies, @letters = FilterHelper.filter_sort(@request, 'ConstituencyGroup', :name)
   end
 
   # Renders a list of constituencies that begin with a particular letter given the letter. Shown with an a - z partial view.
@@ -39,7 +39,7 @@ class ConstituenciesController < ApplicationController
   # @controller_action_param :letter [String] single letter that is case insensitive.
   # @return [Array] Grom::Nodes of type 'https://id.parliament.uk/schema/ConstituencyGroup'.
   def current_letters
-    @constituencies, @letters = FilterHelper.letters(@request, 'ConstituencyGroup', :name)
+    @constituencies, @letters = FilterHelper.filter_sort(@request, 'ConstituencyGroup', :name)
     @all_path = :constituencies_current_path
   end
 

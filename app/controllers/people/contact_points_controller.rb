@@ -7,7 +7,7 @@ module People
     }.freeze
 
     def index
-      @person, @contact_points = FilterHelper.multi_filter(@request, 'Person', 'ContactPoint')
+      @person, @contact_points = FilterHelper.filter(@request, 'Person', 'ContactPoint')
       @person = @person.first
     end
   end

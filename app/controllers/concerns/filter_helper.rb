@@ -1,6 +1,6 @@
 module FilterHelper
 
-  def self.letters(request, types, sort_type)
+  def self.filter_sort(request, types, sort_type)
     thing, letters = self.filter_letters(request, types)
     thing = thing.sort_by(sort_type)
     letters = letters.map(&:value)
@@ -8,18 +8,27 @@ module FilterHelper
   end
 
 
-  def self.multi_filter(request, type1, type2)
+  def self.filter(request, *types)
+    types_to_filter = []
+    types.each do |type|
+      if type == 'ordnance'
+        types_to_filter << 'http://data.ordnancesurvey.co.uk/ontology/admingeo/EuropeanRegion'
+      else
+      types_to_filter << Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path(type)
+      end
+    end
     Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-      request,
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path(type1),
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path(type2)
-    )
+      request, *types_to_filter)
   end
 
   def self.filter_letters(request, *types)
     types_to_filter = []
     types.each do |type|
+      if type == 'ordnance'
+        types_to_filter << 'http://data.ordnancesurvey.co.uk/ontology/admingeo/EuropeanRegion'
+      else
       types_to_filter << Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path(type)
+      end
     end
     Parliament::Utils::Helpers::RequestHelper.filter_response_data(
       request, *types_to_filter,

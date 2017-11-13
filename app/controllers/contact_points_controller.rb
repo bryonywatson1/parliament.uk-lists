@@ -6,10 +6,7 @@ class ContactPointsController < ApplicationController
   }.freeze
 
   def index
-    @contact_points = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-      @request,
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ContactPoint')
-    )
+    @contact_points = FilterHelper.filter(@request, 'ContactPoint')
   end
 
 end

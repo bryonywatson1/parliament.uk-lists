@@ -12,13 +12,7 @@ module Houses
     }.freeze
 
     def index
-      @house, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -28,13 +22,7 @@ module Houses
     end
 
     def current
-      @house, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -44,13 +32,7 @@ module Houses
     end
 
     def letters
-      @house, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -60,13 +42,7 @@ module Houses
     end
 
     def current_letters
-      @house, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-        ::Grom::Node::BLANK
-      )
-
+      @house, @people, @letters = FilterHelper.filter_letters(@request, 'House', 'Person')
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -76,12 +52,7 @@ module Houses
     end
 
     def a_to_z
-      @house, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        ::Grom::Node::BLANK
-      )
-
+      @house, @letters = FilterHelper.filter_letters(@request, 'House')
       @house = @house.first
       @house_id = params[:house_id]
       @letters = @letters.map(&:value)
@@ -90,12 +61,7 @@ module Houses
     end
 
     def a_to_z_current
-      @house, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-        ::Grom::Node::BLANK
-      )
-
+      @house, @letters = FilterHelper.filter_letters(@request, 'House')
       @house = @house.first
       @house_id = params[:house_id]
       @letters = @letters.map(&:value)

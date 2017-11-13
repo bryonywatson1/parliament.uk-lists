@@ -15,15 +15,7 @@ module Parliaments
         }.freeze
 
         def index
-          @parliament, @house, @party, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-            @request,
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-            ::Grom::Node::BLANK
-          )
-
+          @parliament, @house, @party, @people, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party', 'Person')
           @parliament = @parliament.first
           @house      = @house.first
           @party      = @party.first
@@ -32,14 +24,7 @@ module Parliaments
         end
 
         def a_to_z
-          @parliament, @house, @party, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-            @request,
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-            ::Grom::Node::BLANK
-          )
-
+          @parliament, @house, @party, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party')
           @parliament = @parliament.first
           @house      = @house.first
           @party      = @party.first
@@ -48,15 +33,7 @@ module Parliaments
         end
 
         def letters
-          @parliament, @house, @party, @people, @letters = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-            @request,
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ParliamentPeriod'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('House'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party'),
-            Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Person'),
-            ::Grom::Node::BLANK
-          )
-
+          @parliament, @house, @party, @people, @letters = FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party', 'Person')
           @parliament = @parliament.first
           @house      = @house.first
           @party      = @party.first

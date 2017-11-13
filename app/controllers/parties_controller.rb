@@ -13,18 +13,15 @@ class PartiesController < ApplicationController
   }.freeze
 
   def index
-    @parties, @letters = FilterHelper.letters(@request, 'Party', :name)
+    @parties, @letters = FilterHelper.filter_sort(@request, 'Party', :name)
   end
 
   def current
-    @parties = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-      @request,
-      Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('Party')
-    ).sort_by(:name)
+    @parties = FilterHelper.filter(@request, 'Party').sort_by(:name)
   end
 
   def letters
-    @parties, @letters = FilterHelper.letters(@request, 'Party', :name)
+    @parties, @letters = FilterHelper.filter_sort(@request, 'Party', :name)
     @all_path = :parties_path
   end
 

@@ -12,20 +12,20 @@ module People
     }.freeze
 
     def index
-      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
+      @people, @letters = FilterHelper.filter_sort(@request, 'Person', :sort_name)
     end
 
     def current
-      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
+      @people, @letters = FilterHelper.filter_sort(@request, 'Person', :sort_name)
     end
 
     def letters
-      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
+      @people, @letters = FilterHelper.filter_sort(@request, 'Person', :sort_name)
       @all_path = :people_members_path
     end
 
     def current_letters
-      @people, @letters = FilterHelper.letters(@request, 'Person', :sort_name)
+      @people, @letters = FilterHelper.filter_sort(@request, 'Person', :sort_name)
       @all_path = :people_members_current_path
     end
 

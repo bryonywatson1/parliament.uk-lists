@@ -8,12 +8,7 @@ module Constituencies
     }.freeze
 
     def index
-      @constituency, @seat_incumbencies = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ConstituencyGroup'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('SeatIncumbency')
-      )
-
+      @constituency, @seat_incumbencies = FilterHelper.filter(@request, 'ConstituencyGroup', 'SeatIncumbency')
       @constituency = @constituency.first
       @seat_incumbencies = @seat_incumbencies.reverse_sort_by(:start_date)
       @current_incumbency = @seat_incumbencies.shift if !@seat_incumbencies.empty? && @seat_incumbencies.first.current?
@@ -25,12 +20,7 @@ module Constituencies
     # @return [Grom::Node] object with type 'https://id.parliament.uk/schema/SeatIncumbency'.
 
     def current
-      @constituency, @seat_incumbency = Parliament::Utils::Helpers::RequestHelper.filter_response_data(
-        @request,
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('ConstituencyGroup'),
-        Parliament::Utils::Helpers::RequestHelper.namespace_uri_schema_path('SeatIncumbency')
-      )
-
+      @constituency, @seat_incumbency = FilterHelper.filter(@request, 'ConstituencyGroup', 'SeatIncumbency')
       @constituency = @constituency.first
       @seat_incumbency = @seat_incumbency.first
     end
