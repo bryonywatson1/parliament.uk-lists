@@ -11,6 +11,5 @@ module Parliaments
       @parliament = @parliament.first
       @houses     = @houses.sort_by(:name)
     end
-
   end
 end

@@ -8,5 +8,4 @@ class ContactPointsController < ApplicationController
   def index
     @contact_points = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ContactPoint')
   end
-
 end

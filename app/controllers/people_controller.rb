@@ -14,7 +14,6 @@ class PeopleController < ApplicationController
 
   def postcode_lookup
     flash[:postcode] = params[:postcode]
-
     redirect_to person_path(params[:person_id])
   end
 
@@ -30,9 +29,7 @@ class PeopleController < ApplicationController
 
   def lookup_by_letters
     @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Person')
-
     return redirect_to person_path(@people.first.graph_id) if @people.size == 1
-
     @people = @people.sort_by(:name)
     @letters = @letters.map(&:value)
   end

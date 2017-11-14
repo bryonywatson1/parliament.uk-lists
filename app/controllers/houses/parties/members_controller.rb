@@ -29,8 +29,6 @@ module Houses
         @letters = @letters.map(&:value)
         @current_person_type, @other_person_type = Parliament::Utils::Helpers::HousesHelper.person_type_string(@house)
         @all_path = :house_parties_party_members_path
-
-
       end
 
       def current

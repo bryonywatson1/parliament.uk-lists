@@ -11,8 +11,6 @@ module Places
     def index
       @places = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ordnance')
       @places = @places.sort_by(:gss_code)
-
     end
-
   end
 end

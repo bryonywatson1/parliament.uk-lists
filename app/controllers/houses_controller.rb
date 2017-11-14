@@ -12,7 +12,6 @@ class HousesController < ApplicationController
 
   def lookup_by_letters
     data = @request.get
-
     if data.size == 1
       redirect_to house_path(data.first.graph_id)
     else

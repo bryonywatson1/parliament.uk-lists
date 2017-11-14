@@ -16,7 +16,6 @@ module Houses
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
-
       @current_person_type, @other_person_type = Parliament::Utils::Helpers::HousesHelper.person_type_string(@house)
       @current_house_id, @other_house_id = Parliament::Utils::Helpers::HousesHelper.house_id_string(@house)
     end
@@ -26,7 +25,6 @@ module Houses
       @house = @house.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
-
       @current_person_type, @other_person_type = Parliament::Utils::Helpers::HousesHelper.person_type_string(@house)
       @current_house_id, @other_house_id = Parliament::Utils::Helpers::HousesHelper.house_id_string(@house)
     end

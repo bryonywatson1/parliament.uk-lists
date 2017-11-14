@@ -61,12 +61,10 @@ class ConstituenciesController < ApplicationController
   # @controller_action_param :letters [String] case insensitive string to lookup.
   def lookup_by_letters
     @constituencies, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ConstituencyGroup')
-
     if @constituencies.size == 1
       redirect_to constituency_path(@constituencies.first.graph_id)
       return
     end
-
     @constituencies = @constituencies.multi_direction_sort({name: :asc, start_date: :desc})
     @letters = @letters.map(&:value)
   end

@@ -32,9 +32,7 @@ class PartiesController < ApplicationController
 
   def lookup_by_letters
     @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party')
-
     return redirect_to party_path(@parties.first.graph_id) if @parties.size == 1
-
     @parties = @parties.sort_by(:name)
     @letters = @letters.map(&:value)
   end

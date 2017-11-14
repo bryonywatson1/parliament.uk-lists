@@ -19,7 +19,6 @@ module Places
       @place = @place.first
       @constituencies = @constituencies.sort_by(:name)
       @letters = @letters.map(&:value)
-
     end
 
     # Renders a list of letters taken from first letter of all constituencies within a given place.

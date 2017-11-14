@@ -8,5 +8,4 @@ class ParliamentsController < ApplicationController
   def index
     @parliaments = @request.get.reverse_sort_by(:number)
   end
-
 end
