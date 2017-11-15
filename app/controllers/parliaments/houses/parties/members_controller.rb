@@ -15,7 +15,7 @@ module Parliaments
         }.freeze
 
         def index
-          @parliament, @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party', 'Person')
+          @parliament, @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ParliamentPeriod', 'House', 'Party', 'Person', ::Grom::Node::BLANK)
           @parliament = @parliament.first
           @house      = @house.first
           @party      = @party.first
@@ -24,7 +24,7 @@ module Parliaments
         end
 
         def a_to_z
-          @parliament, @house, @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party')
+          @parliament, @house, @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ParliamentPeriod', 'House', 'Party', ::Grom::Node::BLANK)
           @parliament = @parliament.first
           @house      = @house.first
           @party      = @party.first
@@ -33,7 +33,7 @@ module Parliaments
         end
 
         def letters
-          @parliament, @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'ParliamentPeriod', 'House', 'Party', 'Person')
+          @parliament, @house, @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'ParliamentPeriod', 'House', 'Party', 'Person', ::Grom::Node::BLANK)
           @parliament = @parliament.first
           @house      = @house.first
           @party      = @party.first

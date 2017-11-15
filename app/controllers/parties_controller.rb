@@ -13,7 +13,7 @@ class PartiesController < ApplicationController
   }.freeze
 
   def index
-    @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_sort(@request, 'Party', :name)
+    @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_sort(@request, :name, 'Party', ::Grom::Node::BLANK)
   end
 
   def current
@@ -21,7 +21,7 @@ class PartiesController < ApplicationController
   end
 
   def letters
-    @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_sort(@request, 'Party', :name)
+    @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_sort(@request, :name, 'Party', ::Grom::Node::BLANK)
     @all_path = :parties_path
   end
 
@@ -31,7 +31,7 @@ class PartiesController < ApplicationController
   end
 
   def lookup_by_letters
-    @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party')
+    @parties, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', ::Grom::Node::BLANK)
     return redirect_to party_path(@parties.first.graph_id) if @parties.size == 1
     @parties = @parties.sort_by(:name)
     @letters = @letters.map(&:value)

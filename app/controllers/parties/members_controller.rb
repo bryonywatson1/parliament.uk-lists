@@ -12,21 +12,21 @@ module Parties
     }.freeze
 
     def index
-      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party', 'Person')
+      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', 'Person', ::Grom::Node::BLANK)
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
     end
 
     def current
-      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party', 'Person')
+      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', 'Person', ::Grom::Node::BLANK)
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
     end
 
     def letters
-      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party', 'Person')
+      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', 'Person', ::Grom::Node::BLANK)
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -34,7 +34,7 @@ module Parties
     end
 
     def current_letters
-      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party', 'Person')
+      @party, @people, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', 'Person', ::Grom::Node::BLANK)
       @party = @party.first
       @people = @people.sort_by(:sort_name)
       @letters = @letters.map(&:value)
@@ -42,7 +42,7 @@ module Parties
     end
 
     def a_to_z
-      @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party')
+      @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', ::Grom::Node::BLANK)
       @party = @party.first
       @party_id = params[:party_id]
       @letters = @letters.map(&:value)
@@ -50,7 +50,7 @@ module Parties
     end
 
     def a_to_z_current
-      @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter_letters(@request, 'Party')
+      @party, @letters = Parliament::Utils::Helpers::FilterHelper.filter(@request, 'Party', ::Grom::Node::BLANK)
       @party = @party.first
       @party_id = params[:party_id]
       @letters = @letters.map(&:value)
