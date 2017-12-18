@@ -324,7 +324,7 @@ DEPENDENCIES
   parliament-opensearch (~> 0.2)
   parliament-routes (~> 0.4)
   parliament-ruby (~> 0.8)
-  parliament-utils (~> 0.4)
+  parliament-utils (~> 0.6)
   pugin (~> 1.6)
   puma (~> 3.10.0)
   rack-rewrite
