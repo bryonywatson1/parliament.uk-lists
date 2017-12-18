@@ -335,7 +335,6 @@ DEPENDENCIES
   rspec-rails
   rubocop
   sanitize
-  sanitize
   simplecov (~> 0.14)
   spring
   spring-watcher-listen (~> 2.0.0)
