@@ -4,7 +4,6 @@ require 'parliament/utils'
 
 # Base class for all other controllers
 class ApplicationController < ActionController::Base
-  include Parliament
   include Parliament::Utils::Helpers::ApplicationHelper
   include Parliament::Utils::Helpers::VCardHelper
   include Pugin::Helpers::ControllerHelpers
