@@ -31,17 +31,12 @@
       = render 'current_roles', current_roles: @current_roles
 
     - if @history && @history[:current].any?
-      .dropdown
-        .dropdown__toggle
-          %h3
-            %a{ href: "#" }
-              = t('.show_history')
-        .dropdown__content
-          .track
-            %h2= "#{t('.held_currently')}"
-            %ul.list--block
-              = render 'timeline_roles', timeline_roles: @history[:current]
-            = render 'previous_roles'
+      .dropdown__content
+        .track
+          %h2= "#{t('.held_currently')}"
+          %ul.list--block
+            = render 'timeline_roles', timeline_roles: @history[:current]
+          = render 'previous_roles'
     - elsif @history && @history[:current].empty?
       .container
         .track
