@@ -1,0 +1,5 @@
+- timeline_roles.each do |role|
+  - if RoleHelper.role_type(role, 'FormalBodyMembership')
+    %li
+      .list--details
+        = render 'timeline_role', role: role, role_type: "#{t('member').capitalize} #{t('of_the')} #{role.formal_body.name}", role_title: t('.committee_role').capitalize

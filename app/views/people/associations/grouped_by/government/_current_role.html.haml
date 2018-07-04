@@ -1,0 +1,11 @@
+%li
+  .list--details
+    %h3.milli= role_type
+    %h4= role_title
+    - if role.try(:nodes)
+      %p= "Elected #{role.nodes.count} times"
+      %ul
+        - role.nodes.each do |node|
+          %li= "#{node.date_range}"
+    - else
+      %p= "#{role.date_range}"

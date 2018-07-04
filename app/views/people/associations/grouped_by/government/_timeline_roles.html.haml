@@ -1,0 +1,5 @@
+- timeline_roles.each do |role|
+  - if RoleHelper.role_type(role, 'GovernmentIncumbency')
+    %li
+      .list--details
+        = render 'timeline_role', role: role, role_type: "#{role.government_position.name}", role_title: t('.government_role').capitalize

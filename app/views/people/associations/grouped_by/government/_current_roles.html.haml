@@ -1,0 +1,3 @@
+%ul.list--pipe
+  - current_roles.fetch('GovernmentIncumbency', []).each do |role|
+    = render 'current_role', role: role, role_type: "#{t('.government_role').capitalize}", role_title: "#{role.government_position.name}"

@@ -29,7 +29,6 @@ gem 'parliament-utils', '~> 0.8', require: false
 # gem 'parliament-routes', '~> 0.6'
 gem 'parliament-routes', path: '../parliament.uk-routes'
 
-
 # Parliament NTriple processes N-triple data
 gem 'parliament-ntriple', '~> 0.2', require: false
 

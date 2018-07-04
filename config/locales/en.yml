@@ -161,36 +161,18 @@ en:
         title: '%{current} %{mps_and_lords}'
       current_letters:
         title: '%{current} %{mps_and_lords}'
-    roles:
+    associations:
       index:
         mp_for: 'MP for'
-        contact: 'contact'
-        contact_postcode: 'Please include your postcode when contacting your MP.'
         membership_history: 'membership history'
         election_history: 'election history'
         roles: 'roles'
         held_currently: 'Held currently'
         show_history: 'Show history'
         years: 'years'
-        check_mp: 'Check if %{name} is your MP'
-        check_mp_alternative: 'Check if this is your MP'
-        correct_mp: '%{name} is the MP for the postcode entered.'
-        incorrect_mp: '%{name} is not the MP for the postcode entered.  Your MP is '
       image:
         figcaption: 'The official MP portraits are %{link}'
         available_download: 'available to download'
-      contact_details:
-        contact_discussion: 'You may be able to discuss issues with your MP in person or online. Contact them for details.'
-      when_to_contact:
-        title: 'When to contact an MP'
-        mps_can_help_with: 'MPs can help with issues that are the responsibility of UK Parliament. They represent their constituents and can help with issues such as:'
-        hospitals_nhs: 'hospitals and the NHS'
-        problems: 'problems with benefits, pensions and national insurance'
-        immigration: 'immigration'
-        school_closures: 'school closures and funding'
-        transport: 'transport facilities'
-        who_else_can_help: 'Who else can help with my issue?'
-        contact_postcode: 'Please include your postcode when contacting your MP.'
       timeline_roles:
         mp_for: 'MP for'
         parliamentary_role: 'parliamentary role'
@@ -206,9 +188,76 @@ en:
         committee_role: 'committee role'
         government_role: 'government role'
         opposition_role: 'opposition role'
-      related_links:
-        title: 'related links'
-        portrait: "%{name}&#8217;s official portrait is %{link}."
+      grouped_by:
+        government:
+          index:
+            mp_for: 'MP for'
+            membership_history: 'membership history'
+            election_history: 'election history'
+            roles: 'roles'
+            held_currently: 'Held currently'
+            show_history: 'Show history'
+            years: 'years'
+          image:
+            figcaption: 'The official MP portraits are %{link}'
+            available_download: 'available to download'
+          timeline_roles:
+            mp_for: 'MP for'
+            parliamentary_role: 'parliamentary role'
+            government_role: 'government role'
+            held_currently: 'Held currently'
+          previous_roles:
+            held_in: "Held in the last %{years} years"
+          current_roles:
+            mp_for: 'MP for'
+            parliamentary_role: 'parliamentary role'
+            government_role: 'government role'
+        opposition:
+          index:
+            mp_for: 'MP for'
+            membership_history: 'membership history'
+            election_history: 'election history'
+            roles: 'roles'
+            held_currently: 'Held currently'
+            show_history: 'Show history'
+            years: 'years'
+          image:
+            figcaption: 'The official MP portraits are %{link}'
+            available_download: 'available to download'
+          timeline_roles:
+            mp_for: 'MP for'
+            parliamentary_role: 'parliamentary role'
+            opposition_role: 'opposition role'
+            held_currently: 'Held currently'
+          previous_roles:
+            held_in: "Held in the last %{years} years"
+          current_roles:
+            mp_for: 'MP for'
+            parliamentary_role: 'parliamentary role'
+            opposition_role: 'opposition role'
+        formal_bodies:
+          index:
+            mp_for: 'MP for'
+            membership_history: 'membership history'
+            election_history: 'election history'
+            roles: 'roles'
+            held_currently: 'Held currently'
+            show_history: 'Show history'
+            years: 'years'
+          image:
+            figcaption: 'The official MP portraits are %{link}'
+            available_download: 'available to download'
+          timeline_roles:
+            mp_for: 'MP for'
+            parliamentary_role: 'parliamentary role'
+            committee_role: 'committee role'
+            held_currently: 'Held currently'
+          previous_roles:
+            held_in: "Held in the last %{years} years"
+          current_roles:
+            mp_for: 'MP for'
+            parliamentary_role: 'parliamentary role'
+            committee_role: 'committee role'
     constituencies:
       index:
         title: '%{current_and_former} %{constituency_plural}'

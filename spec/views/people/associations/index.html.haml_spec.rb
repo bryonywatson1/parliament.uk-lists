@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'people/roles/index', vcr: true do
+RSpec.describe 'people/associations/index', vcr: true do
   constituency_graph_id     = 'MtbjxRrE'
   house_of_commons_graph_id = 'KL2k1BGP'
   house_of_lords_graph_id   = 'm1EgVTLj'
@@ -10,24 +10,36 @@ RSpec.describe 'people/roles/index', vcr: true do
     before do
       assign(:person,
         double(:person,
-          display_name: 'Test Display Name',
-          full_title:   'Test Title',
-          full_name:    'Test Full Name',
-          statuses:     { house_membership_status: ['Current MP'] },
-          graph_id:     '7TX8ySd4',
-          current_mp?:   true,
-          current_lord?: false,
-          weblinks?:     false))
+          display_name:   'Test Display Name',
+          full_title:     'Test Title',
+          full_name:      'Test Full Name',
+          gender_pronoun: 'She',
+          statuses:       { house_membership_status: ['Current MP'] },
+          graph_id:       '7TX8ySd4',
+          current_mp?:    true,
+          current_lord?:  false,
+          mnis_id:        '1357',
+          weblinks?:      false))
 
       assign(:current_incumbency,
         double(:current_incumbency,
           constituency: double(:constituency, name: 'Aberavon', graph_id: constituency_graph_id, date_range: 'from 2010')))
       assign(:most_recent_incumbency, nil)
-      assign(:history, { start: nil, current: [], years: {} })
-
+      assign(:history, {
+      start: double(:start, year: Time.zone.now - 5.years),
+      current: [],
+      years: {} })
       assign(:seat_incumbencies, count: 2)
       assign(:committee_memberships, count: 2)
       assign(:government_incumbencies, count: 2)
+      assign(:sorted_incumbencies, [
+        double(:first_incumbency,
+          start_date: Time.zone.now - 5.years
+        ),
+        double(:last_incumbency,
+          end_date: Time.zone.now - 1.years
+        )
+      ])
 
       render
     end
@@ -41,14 +53,15 @@ RSpec.describe 'people/roles/index', vcr: true do
     before do
       assign(:person,
         double(:person,
-          display_name: 'Test Display Name',
-          full_title:   'Test Title',
-          full_name:    'Test Full Name',
-          statuses:     { house_membership_status: ['Current MP'] },
-          graph_id:     '7TX8ySd4',
-          current_mp?:   true,
-          current_lord?: false,
-          weblinks?:     false))
+          display_name:   'Test Display Name',
+          full_title:     'Test Title',
+          full_name:      'Test Full Name',
+          gender_pronoun: 'She',
+          statuses:       { house_membership_status: ['Current MP'] },
+          graph_id:       '7TX8ySd4',
+          current_mp?:    true,
+          current_lord?:  false,
+          weblinks?:      false))
 
       assign(:current_incumbency,
         double(:current_incumbency,
@@ -126,13 +139,14 @@ RSpec.describe 'people/roles/index', vcr: true do
       before do
         assign(:person,
           double(:person,
-            display_name: 'Test Display Name',
-            full_title:   'Test Title',
-            full_name:    'Test Full Name',
-            statuses:     { house_membership_status: [] },
-            graph_id:     '7TX8ySd4',
-            current_mp?:   true,
-            weblinks?:     false))
+            display_name:   'Test Display Name',
+            full_title:     'Test Title',
+            full_name:      'Test Full Name',
+            gender_pronoun: 'She',
+            statuses:       { house_membership_status: [] },
+            graph_id:       '7TX8ySd4',
+            current_mp?:     true,
+            weblinks?:       false))
 
         assign(:committee_memberships, count: 2)
         assign(:government_incumbencies, count: 2)
@@ -152,14 +166,15 @@ RSpec.describe 'people/roles/index', vcr: true do
       before do
         assign(:person,
           double(:person,
-            display_name: 'Test Display Name',
-            full_title:   'Test Title',
-            full_name:    'Test Full Name',
-            statuses:     { house_membership_status: ['Current MP'] },
-            graph_id:     '7TX8ySd4',
-            current_mp?:   true,
-            current_lord?: false,
-            weblinks?:     false))
+            display_name:   'Test Display Name',
+            full_title:     'Test Title',
+            full_name:      'Test Full Name',
+            gender_pronoun: 'She',
+            statuses:       { house_membership_status: ['Current MP'] },
+            graph_id:       '7TX8ySd4',
+            current_mp?:    true,
+            current_lord?:  false,
+            weblinks?:      false))
 
         assign(:committee_memberships, count: 2)
         assign(:government_incumbencies, count: 2)
@@ -178,19 +193,19 @@ RSpec.describe 'people/roles/index', vcr: true do
         before do
           assign(:person,
             double(:person,
-              display_name:  'Test Display Name',
-              full_title:    'Test Title',
-              full_name:     'Test Full Name',
-              statuses:      { house_membership_status: ['Current MP', 'Former Lord'] },
-              current_mp?:   true,
-              current_lord?: false,
-              weblinks?:     false))
+              display_name:   'Test Display Name',
+              full_title:     'Test Title',
+              full_name:      'Test Full Name',
+              gender_pronoun: 'She',
+              statuses:       { house_membership_status: ['Current MP', 'Former Lord'] },
+              current_mp?:    true,
+              current_lord?:  false,
+              weblinks?:      false))
 
           assign(:committee_memberships, count: 2)
           assign(:government_incumbencies, count: 2)
           render
         end
-
       end
 
       context 'person is not a former Lord' do
@@ -204,13 +219,14 @@ RSpec.describe 'people/roles/index', vcr: true do
       before do
         assign(:person,
           double(:person,
-            display_name:  'Test Display Name',
-            full_title:    'Test Title',
-            full_name:     'Test Full Name',
-            statuses:      { house_membership_status: ['Member of the House of Lords', 'test Membership'] },
-            current_mp?:   false,
-            current_lord?: true,
-            weblinks?:     false))
+            display_name:   'Test Display Name',
+            full_title:     'Test Title',
+            full_name:      'Test Full Name',
+            gender_pronoun: 'She',
+            statuses:       { house_membership_status: ['Member of the House of Lords', 'test Membership'] },
+            current_mp?:    false,
+            current_lord?:  true,
+            weblinks?:      false))
 
         assign(:seat_incumbencies, count: 2)
         assign(:committee_memberships, count: 2)
@@ -226,11 +242,12 @@ RSpec.describe 'people/roles/index', vcr: true do
         before do
           assign(:person,
             double(:person,
-              display_name:  'Test Display Name',
-              full_title:    'Test Title',
-              full_name:     'Test Full Name',
-              statuses:      { house_membership_status: ['Former MP', 'member of the House of Lords'] },
-              graph_id:      '7TX8ySd4',
+              display_name:   'Test Display Name',
+              full_title:     'Test Title',
+              full_name:      'Test Full Name',
+              gender_pronoun: 'She',
+              statuses:       { house_membership_status: ['Former MP', 'member of the House of Lords'] },
+              graph_id:       '7TX8ySd4',
               current_mp?:    false,
               current_lord?:  true,
               weblinks?:      false))
@@ -245,7 +262,6 @@ RSpec.describe 'people/roles/index', vcr: true do
         it 'will only keep the first house_membership_status capitalized' do
           expect(rendered).not_to match(/Former MP and Member of the House of Lords/)
         end
-
       end
     end
 
@@ -253,14 +269,15 @@ RSpec.describe 'people/roles/index', vcr: true do
       before do
         assign(:person,
           double(:person,
-            display_name:  'Test Display Name',
-            full_title:    'Test Title',
-            full_name:     'Test Full Name',
-            statuses:      { house_membership_status: ['Test Membership'] },
-            graph_id:      '7TX8ySd4',
-            current_mp?:   false,
-            current_lord?: false,
-            weblinks?:     false))
+            display_name:   'Test Display Name',
+            full_title:     'Test Title',
+            full_name:      'Test Full Name',
+            gender_pronoun: 'She',
+            statuses:       { house_membership_status: ['Test Membership'] },
+            graph_id:       '7TX8ySd4',
+            current_mp?:    false,
+            current_lord?:  false,
+            weblinks?:      false))
 
         assign(:committee_memberships, count: 2)
         assign(:government_incumbencies, count: 2)
@@ -275,14 +292,15 @@ RSpec.describe 'people/roles/index', vcr: true do
         before do
           assign(:person,
             double(:person,
-              display_name:  'Test Display Name',
-              full_title:    'Test Title',
-              full_name:     'Test Full Name',
-              statuses:      { house_membership_status: ['Former MP'] },
-              graph_id:      '7TX8ySd4',
-              current_mp?:   false,
-              current_lord?: false,
-              weblinks?:     false))
+              display_name:   'Test Display Name',
+              full_title:     'Test Title',
+              full_name:      'Test Full Name',
+              gender_pronoun: 'She',
+              statuses:       { house_membership_status: ['Former MP'] },
+              graph_id:       '7TX8ySd4',
+              current_mp?:    false,
+              current_lord?:  false,
+              weblinks?:      false))
           render
         end
 
@@ -297,6 +315,7 @@ RSpec.describe 'people/roles/index', vcr: true do
                 display_name: 'Test Display Name',
                 full_title:   'Test Title',
                 full_name:    'Test Full Name',
+                gender:       double(:gender, pronoun: 'She'),
                 statuses:     { house_membership_status: ['Former MP', 'former Lord'] },
                 graph_id:     '7TX8ySd4',
                 current_mp?:   false,
@@ -308,7 +327,6 @@ RSpec.describe 'people/roles/index', vcr: true do
           it 'will render statuses' do
             expect(rendered).to match(/Former MP and former Lord/)
           end
-
         end
       end
     end
@@ -317,14 +335,15 @@ RSpec.describe 'people/roles/index', vcr: true do
       before do
         assign(:person,
           double(:person,
-            display_name:  'Test Display Name',
-            full_title:    'Test Title',
-            full_name:     'Test Full Name',
-            statuses:      { house_membership_status: ['Current MP'] },
-            graph_id:      '7TX8ySd4',
-            current_mp?:   true,
-            current_lord?: false,
-            weblinks?:     false))
+            display_name:   'Test Display Name',
+            full_title:     'Test Title',
+            full_name:      'Test Full Name',
+            gender_pronoun: 'She',
+            statuses:       { house_membership_status: ['Current MP'] },
+            graph_id:       '7TX8ySd4',
+            current_mp?:    true,
+            current_lord?:  false,
+            weblinks?:      false))
 
         assign(:current_incumbency,
           double(:current_incumbency,
@@ -345,50 +364,19 @@ RSpec.describe 'people/roles/index', vcr: true do
     end
   end
 
-  context '@current_incumbency and @current_party_membership are present' do
-    before do
-      assign(:seat_incumbencies, [
-               double(:seat_incumbency,
-                 house_of_commons?: true,
-                 start_date:   Time.zone.now - 2.months,
-                 end_date:     nil,
-                 current?:     true,
-                 date_range:   "from #{(Time.zone.now - 2.months).strftime('%-e %b %Y')} to present",
-                 constituency: double(:constituency,
-                   name:       'Aberavon',
-                   graph_id:   constituency_graph_id,
-                   start_date: Time.zone.now - 2.months,
-                   date_range: 'from 2010')),
-               double(:seat_incumbency,
-                 house_of_commons?: true,
-                 start_date:   Time.zone.now - 2.months,
-                 end_date:     Time.zone.now - 1.week,
-                 current?:     false,
-                 date_range:   "from #{(Time.zone.now - 2.months).strftime('%-e %b %Y')} to #{(Time.zone.now - 1.week).strftime('%-e %b %Y')}",
-                 constituency: double(:constituency,
-                   name:       'Aberconwy',
-                   graph_id:   constituency_graph_id,
-                   start_date: Time.zone.now - 2.months,
-                   date_range: 'from 2010'))
-             ])
-
-      assign(:most_recent_incumbency, nil)
-      assign(:current_party_membership, double(:current_party_membership, party: double(:party, name: 'Conservative', graph_id: 'jF43Jxoc')))
-    end
-  end
-
   context '@seat_incumbencies, @government_incumbencies or @committee_memberships are present' do
     before do
       assign(:person,
         double(:person,
-          display_name:  'Test Display Name',
-          full_title:    'Test Title',
-          full_name:     'Test Full Name',
-          statuses:      { house_membership_status: ['Member of the House of Lords'] },
-          graph_id:      '9BSfSFxq',
-          current_mp?:   false,
-          current_lord?: true,
-          weblinks?:     false))
+          display_name:   'Test Display Name',
+          full_title:     'Test Title',
+          full_name:      'Test Full Name',
+          gender_pronoun: 'She',
+          statuses:       { house_membership_status: ['Member of the House of Lords'] },
+          graph_id:       '9BSfSFxq',
+          current_mp?:    false,
+          current_lord?:  true,
+          weblinks?:      false))
 
       assign(:most_recent_incumbency, nil)
       assign(:current_party_membership,
@@ -401,8 +389,8 @@ RSpec.describe 'people/roles/index', vcr: true do
     end
 
     context 'with roles' do
-      before do
-        assign(:history, {
+      let(:history) do
+        {
           start: Time.zone.now - 25.years,
           current: [
             double(:seat_incumbency,
@@ -441,8 +429,8 @@ RSpec.describe 'people/roles/index', vcr: true do
             ),
             double(:seat_incumbency,
               type: '/SeatIncumbency',
-              house_of_commons?: false,
-              house_of_lords?: true,
+              house_of_commons?: true,
+              house_of_lords?: false,
               start_date: Time.zone.now - 2.months,
               end_date:   nil,
               date_range: "from #{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to present",
@@ -480,10 +468,9 @@ RSpec.describe 'people/roles/index', vcr: true do
               ),
               double(:seat_incumbency,
                 type: '/SeatIncumbency',
-                house_of_commons?: false,
-                house_of_lords?: true,
+                house_of_commons?: true,
+                house_of_lords?: false,
                 start_date: Time.zone.now - 6.months,
-                end_date:   Time.zone.now - 1.week,
                 date_range: "from #{(Time.zone.now - 6.months).strftime('%-e %b %Y')} to #{(Time.zone.now - 1.week).strftime('%-e %b %Y')}",
                 constituency: double(:constituency,
                   name:       'Fake Place 1',
@@ -492,7 +479,83 @@ RSpec.describe 'people/roles/index', vcr: true do
               )
             ]
           }
+        }
+      end
+
+      before :each do
+        assign(:history, history)
+
+        assign(:current_roles, {
+          'FormalBodyMembership'.to_s => [
+            double(:committee_membership1,
+              type: '/FormalBodyMembership',
+              date_range: "from #{(Time.zone.now - 12.months).strftime('%-e %b %Y')} to present",
+              formal_body: double(:formal_body,
+                name: 'Test Committee Name 1',
+                graph_id:   constituency_graph_id,
+              )
+            ),
+            double(:committee_membership2,
+              type: '/FormalBodyMembership',
+              date_range: "from #{(Time.zone.now - 8.months).strftime('%-e %b %Y')} to present",
+              formal_body: double(:formal_body,
+                name: 'Test Committee Name 2',
+                graph_id:   constituency_graph_id,
+              )
+            ),
+            double(:committee_membership3,
+              type: '/FormalBodyMembership',
+              date_range: "from #{(Time.zone.now - 9.months).strftime('%-e %b %Y')} to present",
+              formal_body: double(:formal_body,
+                name: 'Test Committee Name 3',
+                graph_id:   constituency_graph_id,
+              )
+            )
+          ],
+          'OppositionIncumbency'.to_s => [
+            double(:opposition_incumbency,
+              type: '/OppositionIncumbency',
+              date_range: "from #{(Time.zone.now - 5.months).strftime('%-e %b %Y')} to present",
+              opposition_position: double(:opposition_position,
+                name: 'Opposition Role 1',
+                graph_id:   opposition_graph_id,
+              )
+            )
+          ],
+          "GovernmentIncumbency" => [
+            double(:government_incumbency,
+              type: '/GovernmentIncumbency',
+              date_range: "from #{(Time.zone.now - 5.months).strftime('%-e %b %Y')} to present",
+              government_position: double(:government_position,
+                name: 'Test Government Position Name',
+                graph_id:   government_graph_id,
+              )
+            )
+          ],
+          'SeatIncumbency'.to_s => [
+            double(:seat_incumbency,
+              type: '/SeatIncumbency',
+              house_of_commons?: true,
+              house_of_lords?: false,
+              start_date: Time.zone.now - 2.months,
+              end_date:   nil,
+              date_range: "from #{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to present",
+              constituency: double(:constituency,
+                name:       'Fake Place 2',
+                graph_id:   constituency_graph_id,
+              )
+            )
+          ]
         })
+        assign(:sorted_incumbencies, [
+          double(:first_incumbency,
+            start_date: Time.zone.now - 5.years
+          ),
+          double(:last_incumbency,
+            end_date: Time.zone.now - 1.years
+          )
+        ])
+
         render
       end
 

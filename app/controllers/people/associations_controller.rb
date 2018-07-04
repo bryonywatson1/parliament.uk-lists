@@ -1,8 +1,8 @@
-class People::RolesController < ApplicationController
+class People::AssociationsController < ApplicationController
   before_action :data_check, :build_request
 
   ROUTE_MAP = {
-    index:   proc { |params| Parliament::Utils::Helpers::ParliamentHelper.parliament_request.person_roles.set_url_params({ person_id: params[:person_id] }) },
+    index:   proc { |params| Parliament::Utils::Helpers::ParliamentHelper.parliament_request.person_associations.set_url_params({ person_id: params[:person_id] }) },
   }.freeze
 
   def index
@@ -17,9 +17,9 @@ class People::RolesController < ApplicationController
 
     roles = []
     roles += incumbencies
-    roles += @committee_memberships.to_a if Pugin::Feature::Bandiera.show_committees?
-    roles += @government_incumbencies.to_a if Pugin::Feature::Bandiera.show_government_roles?
-    roles += @opposition_incumbencies.to_a if Pugin::Feature::Bandiera.show_opposition_roles?
+    roles += @committee_memberships.to_a
+    roles += @government_incumbencies.to_a
+    roles += @opposition_incumbencies.to_a
 
     @sorted_incumbencies = Parliament::NTriple::Utils.sort_by({
       list:             @person.incumbencies,
@@ -36,7 +36,6 @@ class People::RolesController < ApplicationController
     @history = HistoryHelper.history
 
     @current_roles = @history[:current].reverse!.group_by { |role| Grom::Helper.get_id(role.type) } if @history[:current]
-
 
   end
 end
