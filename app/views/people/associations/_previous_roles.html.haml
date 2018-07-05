@@ -1,6 +1,10 @@
-- @history[:years].keys.sort.each do |year|
-  %h2= "#{t('.held_in', years: year)}"
-  %ul.list--block
-    = render 'timeline_roles', timeline_roles: @history[:years][year]
-- if @history && @history[:start]
-  %h2= @history[:start].year
+.block--border__bottom
+  %h2= t('people.associations.previous_roles')
+  %ul.track
+    %li
+      - @history[:years].keys.sort.each do |year|
+        %h3= t('people.associations.held_in', years: year)
+        %ul.list--block
+          = render 'timeline_roles', timeline_roles: @history[:years][year]
+      - if @history && @history[:start]
+        %h2= @history[:start].year

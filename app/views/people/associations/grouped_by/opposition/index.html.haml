@@ -1,48 +1,22 @@
-.section--primary#content{ tabindex: "0" }
+- title("#{@person.display_name} - #{t('people.associations.opposition_role').titleize}s")
+
+.section--primary
   .container
-    %h1= title(@person.display_name)
+    .card
+      - if @person.image_id(show_placeholder: false)
+        = render '/people/associations/image'
+      .card__details
+        %h1
+          %span= link_to(@person.display_name, person_path(@person.graph_id))
+          %span.context= t('people.associations.roles_in_parliament')
 
-    %p.lead
-      - if @most_recent_incumbency.nil? || @most_recent_incumbency.house.name == 'House of Lords'
-        ="#{@person.full_name}" unless @person.display_name == @person.full_name
-
-      - if @current_party_membership && @current_incumbency
-        - current_party_details = link_to(@current_party_membership.party.name, party_path(@current_party_membership.party.graph_id))
-
-      - unless @person.statuses[:house_membership_status].empty?
-        - if @person.current_mp?
-          = current_party_details if current_party_details
-          = t('.mp_for')
-          = link_to(@current_incumbency.constituency.name, constituency_path(@current_incumbency.constituency.graph_id))
-        - else
-          - unless @person.display_name == @person.full_name
-            %br
-          = current_party_details + ' -' if current_party_details
-          = @person.statuses[:house_membership_status].join(' and ')
-
-    - if Pugin::Feature::Bandiera.show_list_images?
-      - if @person.image_id(show_placeholder:false)
-        = render 'image'
-
-
-%section
+%section{ id: "content", tabindex: "0" }
   .container
     - if @opposition_incumbencies && @opposition_incumbencies.any?
-      %h2= t('.roles').capitalize
-      - if @current_roles
+      - if @history[:current].any?
         = render 'current_roles', current_roles: @current_roles
-
-      - if @history && @history[:current].any?
-        .content
-          %ul.track
-            %li
-              %h2= "#{t('.held_currently')}"
-              %ul.list--block
-                = render 'timeline_roles', timeline_roles: @history[:current]
-              = render 'previous_roles'
-      - elsif @history && @history[:current].empty?
-        %ul.track
-          %li
-            = render 'previous_roles'
+      - if @history
+        = render 'previous_roles'
     - else
-      %h2= 'No Opposition Roles'
+      .status--highlight
+        %p= "No #{t('people.associations.opposition_role').titleize}s"

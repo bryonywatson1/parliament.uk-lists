@@ -1,3 +1,5 @@
-%ul.list--pipe
-  - current_roles.fetch('OppositionIncumbency', []).each do |role|
-    = render 'current_role', role: role, role_type: "#{t('.opposition_role').capitalize}", role_title: "#{role.opposition_position.name}"
+.block--border__bottom
+  %h2= t('people.associations.current_roles')
+  %ul.list--block
+    - @history[:current].each do |role|
+      = render '/people/associations/current_role', role: role, role_title: role.opposition_position.name, role_type: t('people.associations.opposition_role')

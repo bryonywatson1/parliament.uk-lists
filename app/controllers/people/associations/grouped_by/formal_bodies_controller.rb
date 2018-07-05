@@ -19,7 +19,6 @@ module People
           incumbencies = GroupingHelper.group(@seat_incumbencies, :constituency, :graph_id)
 
           roles = []
-          roles += incumbencies
           roles += @committee_memberships.to_a
 
           @sorted_incumbencies = Parliament::NTriple::Utils.sort_by({
@@ -35,8 +34,6 @@ module People
           HistoryHelper.reset
           HistoryHelper.add(roles)
           @history = HistoryHelper.history
-
-          @current_roles = @history[:current].reverse!.group_by { |role| Grom::Helper.get_id(role.type) } if @history[:current]
 
         end
       end

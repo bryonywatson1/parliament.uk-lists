@@ -1,3 +1,5 @@
-%ul.list--pipe
-  - current_roles.fetch('FormalBodyMembership', []).each do |role|
-    = render 'current_role', role: role, role_type: "#{t('.committee_role').capitalize}", role_title: "#{t('member').capitalize} #{t('of_the')} #{role.formal_body.name}"
+.block--border__bottom
+  %h2= t('people.associations.current_roles')
+  %ul.list--block
+    - @history[:current].each do |role|
+      = render '/people/associations/current_role', role: role, role_title: "#{t('member').capitalize} #{t('of_the')} #{role.formal_body.name}", role_type: t('people.associations.committee_role')

@@ -1,8 +1,12 @@
-%h5= role_type
-%p= role_title
-- if role.try(:nodes)
-  %ul
-    - role.nodes.each do |node|
-      %li= "#{node.date_range}"
-- else
-  %p= "#{role.date_range}"
+%li
+  .card
+    .card__details
+      %h4= role_title
+      %p= role_type
+      - if role.try(:nodes)
+        %p= "Elected #{role.nodes.count} times"
+        %ul
+          - role.nodes.each do |node|
+            %li= "#{node.date_range}"
+      - else
+        %p= "#{role.date_range}"

@@ -14,12 +14,17 @@ RSpec.describe 'people/associations/index', vcr: true do
           full_title:     'Test Title',
           full_name:      'Test Full Name',
           gender_pronoun: 'She',
+          image_id:       'CCCCCCCC',
           statuses:       { house_membership_status: ['Current MP'] },
           graph_id:       '7TX8ySd4',
           current_mp?:    true,
           current_lord?:  false,
           mnis_id:        '1357',
           weblinks?:      false))
+
+      assign(:image,
+          double(:image,
+            graph_id:     'XXXXXXXX'))
 
       assign(:current_incumbency,
         double(:current_incumbency,
@@ -56,6 +61,7 @@ RSpec.describe 'people/associations/index', vcr: true do
           display_name:   'Test Display Name',
           full_title:     'Test Title',
           full_name:      'Test Full Name',
+          image_id:       'CCCCCCCC',
           gender_pronoun: 'She',
           statuses:       { house_membership_status: ['Current MP'] },
           graph_id:       '7TX8ySd4',
@@ -75,10 +81,6 @@ RSpec.describe 'people/associations/index', vcr: true do
         assign(:government_incumbencies, count: 2)
         assign(:committee_memberships, count: 2)
         render
-      end
-
-      it 'will render full name and display name' do
-        expect(rendered).to match(/Test Full Name/)
       end
 
       it 'will render display name' do
@@ -115,10 +117,6 @@ RSpec.describe 'people/associations/index', vcr: true do
           render
         end
 
-        it 'will render full name' do
-          expect(rendered).to match(/Test Full Name/)
-        end
-
         it 'will render display name' do
           expect(rendered).to match(/Test Display Name/)
         end
@@ -143,6 +141,7 @@ RSpec.describe 'people/associations/index', vcr: true do
             full_title:     'Test Title',
             full_name:      'Test Full Name',
             gender_pronoun: 'She',
+            image_id:       'CCCCCCCC',
             statuses:       { house_membership_status: [] },
             graph_id:       '7TX8ySd4',
             current_mp?:     true,
@@ -170,6 +169,7 @@ RSpec.describe 'people/associations/index', vcr: true do
             full_title:     'Test Title',
             full_name:      'Test Full Name',
             gender_pronoun: 'She',
+            image_id:       'CCCCCCCC',
             statuses:       { house_membership_status: ['Current MP'] },
             graph_id:       '7TX8ySd4',
             current_mp?:    true,
@@ -181,14 +181,6 @@ RSpec.describe 'people/associations/index', vcr: true do
         render
       end
 
-      it 'will not render status info' do
-        expect(rendered).to match(/MP for/)
-      end
-
-      it 'will render link to constituency' do
-        expect(rendered).to have_link('Aberavon', href: constituency_path(constituency_graph_id))
-      end
-
       context 'person is former Lord' do
         before do
           assign(:person,
@@ -197,7 +189,9 @@ RSpec.describe 'people/associations/index', vcr: true do
               full_title:     'Test Title',
               full_name:      'Test Full Name',
               gender_pronoun: 'She',
+              image_id:       'CCCCCCCC',
               statuses:       { house_membership_status: ['Current MP', 'Former Lord'] },
+              graph_id:       'XXXXXXXX',
               current_mp?:    true,
               current_lord?:  false,
               weblinks?:      false))
@@ -223,7 +217,8 @@ RSpec.describe 'people/associations/index', vcr: true do
             full_title:     'Test Title',
             full_name:      'Test Full Name',
             gender_pronoun: 'She',
-            statuses:       { house_membership_status: ['Member of the House of Lords', 'test Membership'] },
+            image_id:       'CCCCCCCC',
+            graph_id:       'XXXXXXXX',
             current_mp?:    false,
             current_lord?:  true,
             weblinks?:      false))
@@ -234,10 +229,6 @@ RSpec.describe 'people/associations/index', vcr: true do
         render
       end
 
-      it 'will render statuses' do
-        expect(rendered).to match(/Member of the House of Lords and test Membership/)
-      end
-
       context 'person is a former MP' do
         before do
           assign(:person,
@@ -246,17 +237,13 @@ RSpec.describe 'people/associations/index', vcr: true do
               full_title:     'Test Title',
               full_name:      'Test Full Name',
               gender_pronoun: 'She',
-              statuses:       { house_membership_status: ['Former MP', 'member of the House of Lords'] },
+              image_id:       'CCCCCCCC',
               graph_id:       '7TX8ySd4',
               current_mp?:    false,
               current_lord?:  true,
               weblinks?:      false))
 
           render
-        end
-
-        it 'will render statuses' do
-          expect(rendered).to match(/Former MP and member of the House of Lords/)
         end
 
         it 'will only keep the first house_membership_status capitalized' do
@@ -273,7 +260,7 @@ RSpec.describe 'people/associations/index', vcr: true do
             full_title:     'Test Title',
             full_name:      'Test Full Name',
             gender_pronoun: 'She',
-            statuses:       { house_membership_status: ['Test Membership'] },
+            image_id:       'CCCCCCCC',
             graph_id:       '7TX8ySd4',
             current_mp?:    false,
             current_lord?:  false,
@@ -284,10 +271,6 @@ RSpec.describe 'people/associations/index', vcr: true do
         render
       end
 
-      it 'will render statuses' do
-        expect(rendered).to match(/Test Membership/)
-      end
-
       context 'person is a former MP' do
         before do
           assign(:person,
@@ -296,16 +279,12 @@ RSpec.describe 'people/associations/index', vcr: true do
               full_title:     'Test Title',
               full_name:      'Test Full Name',
               gender_pronoun: 'She',
-              statuses:       { house_membership_status: ['Former MP'] },
+              image_id:       'CCCCCCCC',
               graph_id:       '7TX8ySd4',
               current_mp?:    false,
               current_lord?:  false,
               weblinks?:      false))
           render
-        end
-
-        it 'will render statuses' do
-          expect(rendered).to match(/Former MP/)
         end
 
         context 'person is a former Lord' do
@@ -316,16 +295,12 @@ RSpec.describe 'people/associations/index', vcr: true do
                 full_title:   'Test Title',
                 full_name:    'Test Full Name',
                 gender:       double(:gender, pronoun: 'She'),
-                statuses:     { house_membership_status: ['Former MP', 'former Lord'] },
+                image_id:       'CCCCCCCC',
                 graph_id:     '7TX8ySd4',
                 current_mp?:   false,
                 current_lord?: false,
                 weblinks?:     false))
             render
-          end
-
-          it 'will render statuses' do
-            expect(rendered).to match(/Former MP and former Lord/)
           end
         end
       end
@@ -339,6 +314,7 @@ RSpec.describe 'people/associations/index', vcr: true do
             full_title:     'Test Title',
             full_name:      'Test Full Name',
             gender_pronoun: 'She',
+            image_id:       'CCCCCCCC',
             statuses:       { house_membership_status: ['Current MP'] },
             graph_id:       '7TX8ySd4',
             current_mp?:    true,
@@ -357,10 +333,6 @@ RSpec.describe 'people/associations/index', vcr: true do
 
         render
       end
-
-      it 'will render link to party_path' do
-        expect(rendered).to have_link('Conservative', href: party_path('jF43Jxoc'))
-      end
     end
   end
 
@@ -372,6 +344,7 @@ RSpec.describe 'people/associations/index', vcr: true do
           full_title:     'Test Title',
           full_name:      'Test Full Name',
           gender_pronoun: 'She',
+          image_id:       'CCCCCCCC',
           statuses:       { house_membership_status: ['Member of the House of Lords'] },
           graph_id:       '9BSfSFxq',
           current_mp?:    false,
@@ -560,9 +533,6 @@ RSpec.describe 'people/associations/index', vcr: true do
       end
 
       context 'showing current' do
-        it 'shows header' do
-          expect(rendered).to match(/Held currently/)
-        end
 
         context 'Parliamentary roles' do
           it 'will render the correct sub-header' do
@@ -570,11 +540,11 @@ RSpec.describe 'people/associations/index', vcr: true do
           end
 
           it 'will render the correct title' do
-            expect(rendered).to match(/Aberconwy/)
+            expect(rendered).to match(/Fake Place 2/)
           end
 
           it 'will render start date to present' do
-            expect(rendered).to match("#{(Time.zone.now - 2.months).strftime('%-e %b %Y')} to present")
+            expect(rendered).to match("#{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to present")
           end
         end
 
@@ -588,7 +558,7 @@ RSpec.describe 'people/associations/index', vcr: true do
           end
 
           it 'will render start date to present' do
-            expect(rendered).to match("#{(Time.zone.now - 3.months).strftime('%-e %b %Y')} to present")
+            expect(rendered).to match("#{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to present")
           end
         end
 
@@ -623,10 +593,6 @@ RSpec.describe 'people/associations/index', vcr: true do
         context 'House roles' do
           it 'will render the correct sub-header' do
             expect(rendered).to match(/Parliamentary role/)
-          end
-
-          it 'will render the correct title' do
-            expect(rendered).to match(/Member of the House of Lords/)
           end
 
           it 'will render start date to present' do
@@ -697,10 +663,6 @@ RSpec.describe 'people/associations/index', vcr: true do
         context 'House roles' do
           it 'will render the correct sub-header' do
             expect(rendered).to match(/Parliamentary role/)
-          end
-
-          it 'will render the correct title' do
-            expect(rendered).to match(/Member of the House of Lords/)
           end
 
           it 'will render start date to present' do

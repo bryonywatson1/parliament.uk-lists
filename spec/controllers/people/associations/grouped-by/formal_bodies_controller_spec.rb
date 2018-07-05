@@ -43,7 +43,7 @@ RSpec.describe People::Associations::GroupedBy::FormalBodiesController, vcr: tru
       history = controller.instance_variable_get(:@history)
       count = 0
       history[:years].keys.each { |year| count = count + history[:years][year].length }
-      expect(count).to eq(3)
+      expect(count).to eq(2)
     end
   end
 

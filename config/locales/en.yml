@@ -162,102 +162,16 @@ en:
       current_letters:
         title: '%{current} %{mps_and_lords}'
     associations:
-      index:
-        mp_for: 'MP for'
-        membership_history: 'membership history'
-        election_history: 'election history'
-        roles: 'roles'
-        held_currently: 'Held currently'
-        show_history: 'Show history'
-        years: 'years'
-      image:
-        figcaption: 'The official MP portraits are %{link}'
-        available_download: 'available to download'
-      timeline_roles:
-        mp_for: 'MP for'
-        parliamentary_role: 'parliamentary role'
-        committee_role: 'committee role'
-        government_role: 'government role'
-        opposition_role: 'opposition role'
-        held_currently: 'Held currently'
-      previous_roles:
-        held_in: "Held in the last %{years} years"
-      current_roles:
-        mp_for: 'MP for'
-        parliamentary_role: 'parliamentary role'
-        committee_role: 'committee role'
-        government_role: 'government role'
-        opposition_role: 'opposition role'
-      grouped_by:
-        government:
-          index:
-            mp_for: 'MP for'
-            membership_history: 'membership history'
-            election_history: 'election history'
-            roles: 'roles'
-            held_currently: 'Held currently'
-            show_history: 'Show history'
-            years: 'years'
-          image:
-            figcaption: 'The official MP portraits are %{link}'
-            available_download: 'available to download'
-          timeline_roles:
-            mp_for: 'MP for'
-            parliamentary_role: 'parliamentary role'
-            government_role: 'government role'
-            held_currently: 'Held currently'
-          previous_roles:
-            held_in: "Held in the last %{years} years"
-          current_roles:
-            mp_for: 'MP for'
-            parliamentary_role: 'parliamentary role'
-            government_role: 'government role'
-        opposition:
-          index:
-            mp_for: 'MP for'
-            membership_history: 'membership history'
-            election_history: 'election history'
-            roles: 'roles'
-            held_currently: 'Held currently'
-            show_history: 'Show history'
-            years: 'years'
-          image:
-            figcaption: 'The official MP portraits are %{link}'
-            available_download: 'available to download'
-          timeline_roles:
-            mp_for: 'MP for'
-            parliamentary_role: 'parliamentary role'
-            opposition_role: 'opposition role'
-            held_currently: 'Held currently'
-          previous_roles:
-            held_in: "Held in the last %{years} years"
-          current_roles:
-            mp_for: 'MP for'
-            parliamentary_role: 'parliamentary role'
-            opposition_role: 'opposition role'
-        formal_bodies:
-          index:
-            mp_for: 'MP for'
-            membership_history: 'membership history'
-            election_history: 'election history'
-            roles: 'roles'
-            held_currently: 'Held currently'
-            show_history: 'Show history'
-            years: 'years'
-          image:
-            figcaption: 'The official MP portraits are %{link}'
-            available_download: 'available to download'
-          timeline_roles:
-            mp_for: 'MP for'
-            parliamentary_role: 'parliamentary role'
-            committee_role: 'committee role'
-            held_currently: 'Held currently'
-          previous_roles:
-            held_in: "Held in the last %{years} years"
-          current_roles:
-            mp_for: 'MP for'
-            parliamentary_role: 'parliamentary role'
-            committee_role: 'committee role'
+      mp_for: "MP for"
+      roles: "roles"
+      roles_in_parliament: "Roles in Parliament"
+      current_roles: "Current roles"
+      previous_roles: "Previous roles"
+      committee_role: 'Committee role'
+      government_role: 'Government role'
+      opposition_role: 'Opposition role'
+      parliamentary_role: 'Parliamentary role'
+      held_in: "Held in the last %{years} years"
     constituencies:
       index:
         title: '%{current_and_former} %{constituency_plural}'

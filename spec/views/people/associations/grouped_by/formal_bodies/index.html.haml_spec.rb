@@ -12,8 +12,13 @@ RSpec.describe 'people/associations/grouped_by/formal_bodies/index', vcr: true d
           full_name:      'Test Full Name',
           statuses:       { house_membership_status: ['Current MP'] },
           graph_id:       '7TX8ySd4',
+          image_id:       'CCCCCCCC',
           current_mp?:    true,
           current_lord?:  false))
+
+      assign(:image,
+          double(:image,
+            graph_id:     'XXXXXXXX'))
 
       assign(:current_incumbency,
         double(:current_incumbency,
@@ -58,6 +63,12 @@ RSpec.describe 'people/associations/grouped_by/formal_bodies/index', vcr: true d
         )
       )
 
+      assign(:sorted_incumbencies, [
+        double(:first_incumbency,
+          start_date: Time.zone.now - 5.years
+        )
+      ])
+
       render
     end
 
@@ -73,33 +84,11 @@ RSpec.describe 'people/associations/grouped_by/formal_bodies/index', vcr: true d
         {
           start: Time.zone.now - 25.years,
           current: [
-            double(:seat_incumbency,
-              house_of_commons?: true,
-              house_of_lords?: false,
-              type: '/SeatIncumbency',
-              date_range: "from #{(Time.zone.now - 2.months).strftime('%-e %b %Y')} to present",
-              constituency: double(:constituency,
-                name:       'Aberconwy',
-                graph_id:   constituency_graph_id,
-              )
-            ),
             double(:committee_membership,
               type: '/FormalBodyMembership',
               date_range: "from #{(Time.zone.now - 3.months).strftime('%-e %b %Y')} to present",
               formal_body: double(:formal_body,
                 name: 'Test Committee Name',
-                graph_id:   constituency_graph_id,
-              )
-            ),
-            double(:seat_incumbency,
-              type: '/SeatIncumbency',
-              house_of_commons?: true,
-              house_of_lords?: false,
-              start_date: Time.zone.now - 2.months,
-              end_date:   nil,
-              date_range: "from #{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to present",
-              constituency: double(:constituency,
-                name:       'Fake Place 2',
                 graph_id:   constituency_graph_id,
               )
             )
@@ -155,10 +144,6 @@ RSpec.describe 'people/associations/grouped_by/formal_bodies/index', vcr: true d
       end
 
       context 'showing current' do
-        it 'shows header' do
-          expect(rendered).to match(/Held currently/)
-        end
-
         context 'Committee roles' do
           it 'will render the correct sub-header' do
             expect(rendered).to match(/Committee role/)
@@ -200,7 +185,7 @@ RSpec.describe 'people/associations/grouped_by/formal_bodies/index', vcr: true d
 
       context 'showing start date' do
         it 'shows start date' do
-          expect(rendered).to match((Time.zone.now - 25.years).strftime('%Y'))
+          expect(rendered).to match((Time.zone.now - 5.years).strftime('%Y'))
         end
       end
     end
@@ -208,60 +193,15 @@ RSpec.describe 'people/associations/grouped_by/formal_bodies/index', vcr: true d
 
   context '@committee_memberships are not present' do
     context 'with roles' do
-      let(:history) do
-        {
-          start: Time.zone.now - 25.years,
-          current: [
-            double(:seat_incumbency,
-              house_of_commons?: true,
-              house_of_lords?: false,
-              type: '/SeatIncumbency',
-              date_range: "from #{(Time.zone.now - 2.months).strftime('%-e %b %Y')} to present",
-              constituency: double(:constituency,
-                name:       'Aberconwy',
-                graph_id:   constituency_graph_id,
-              )
-            ),
-            double(:seat_incumbency,
-              type: '/SeatIncumbency',
-              house_of_commons?: true,
-              house_of_lords?: false,
-              start_date: Time.zone.now - 2.months,
-              end_date:   nil,
-              date_range: "from #{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to present",
-              constituency: double(:constituency,
-                name:       'Fake Place 2',
-                graph_id:   constituency_graph_id,
-              )
-            )
-          ],
-          years: {
-            '10': [
-              double(:seat_incumbency,
-                type: '/SeatIncumbency',
-                house_of_commons?: true,
-                house_of_lords?: false,
-                start_date: Time.zone.now - 2.months,
-                end_date:   nil,
-                date_range: "from #{(Time.zone.now - 4.months).strftime('%-e %b %Y')} to #{(Time.zone.now - 7.years).strftime('%-e %b %Y')}",
-                constituency: double(:constituency,
-                  name:       'Fake Place 2',
-                  graph_id:   constituency_graph_id,
-                )
-              )
-            ]
-          }
-        }
-      end
-
+      let(:history) {}
       before :each do
         assign(:history, history)
         assign(:committee_memberships, [])
         render
       end
 
-      it 'shows no committee memberships message' do
-        expect(rendered).to match(/No Committee Memberships/)
+      it 'shows no committee roles message' do
+        expect(rendered).to match(/No Committee Roles/)
       end
     end
   end
